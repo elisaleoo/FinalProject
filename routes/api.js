@@ -19,24 +19,23 @@ router.get('/', function (req, res, next) {
       
     },
     error: function (error) {
-      alert("Error: " + error.code + " " + error.message);
+      console.log("Error: " + error);
     }
   });
 });
 
 router.get('/restaurant', function (req, res, next) {
-  console.log(req.params)
   var Restaurant = Parse.Object.extend("Restaurant");
   var query = new Parse.Query(Restaurant);
   // query.equalTo("playerName", "Dan Stemkoski");
-  query.get(req.params.id, {
+  query.get(req.query.id, {
     success: function (results) {
       res.send(results)
       // Do something with the returned Parse.Object values
       
     },
     error: function (error) {
-      alert("Error: " + error.code + " " + error.message);
+      console.log("Error: " + error);
     }
   });
 });

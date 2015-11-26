@@ -9,7 +9,6 @@ angular.module('restaurantApp.controllers', []).controller('RestaurantListContro
         method: 'GET',
         url: '/api'
     }).then(function successCallback(response) {
-        console.log(response)
         $scope.restaurants = response.data
         // this callback will be called asynchronously
         // when the response is available
@@ -35,7 +34,7 @@ console.log($stateParams)
         params: {id : $stateParams.id}
     }).then(function successCallback(response) {
         console.log(response)
-        $scope.restaurants = response.data[0]
+        $scope.restaurant = response.data
         // this callback will be called asynchronously
         // when the response is available
     }, function errorCallback(response) {

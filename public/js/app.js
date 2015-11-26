@@ -10,7 +10,7 @@ angular.module('restaurantApp').config(function($stateProvider,$httpProvider){
         templateUrl:'partials/restaurants.html',
         controller:'RestaurantListController'
     }).state('viewRestaurant',{
-       url:'/restaurant',
+       url:'/restaurant/:id',
        templateUrl:'partials/restaurant-view.html',
        controller:'RestaurantViewController'
     }).state('newRestaurant',{
