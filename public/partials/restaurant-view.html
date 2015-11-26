@@ -1,0 +1,25 @@
+<table class="table movietable">
+    <tr>
+        <td><h3>Details for {{restaurant.name}}</h3></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Restaurant Name</td>
+        <td>{{restaurant.name}}</td>
+    </tr>
+    <tr>
+        <td>About</td>
+        <td>{{restaurant.about}}</td>
+    </tr>
+    <tr>
+        <td>Address</td>
+        <td>{{restaurant.address}}</td>
+    </tr>
+    <tr>
+        <td>Phone</td>
+        <td>{{restaurant.phone}}</td>
+    </tr>
+</table>
+<div>
+    <a class="btn btn-primary" ui-sref="editRestaurant({id:restaurant._id})">Edit</a>
+</div>
