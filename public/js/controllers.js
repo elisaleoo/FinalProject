@@ -27,11 +27,11 @@ angular.module('restaurantApp.controllers', []).controller('RestaurantListContro
 
 }).controller('RestaurantViewController', function ($scope, $stateParams, $http) {
 
-console.log($stateParams)
+    console.log($stateParams)
     $http({
         method: 'GET',
         url: '/api/restaurant',
-        params: {id : $stateParams.id}
+        params: { id: $stateParams.id }
     }).then(function successCallback(response) {
         console.log(response)
         $scope.restaurant = response.data
@@ -42,27 +42,52 @@ console.log($stateParams)
         // or server returns response with an error status.
     });
 
-}).controller('RestaurantCreateController', function ($scope, $state, $stateParams, Restaurant) {
-
-    $scope.Restaurant = new Restaurant();
+}).controller('RestaurantCreateController', function ($scope, $state, $stateParams, $http) {
 
     $scope.addRestaurant = function () {
-        $scope.restaurant.$save(function () {
-            $state.go('restaurants');
+        $http({
+            method: 'POST',
+            url: '/api/restaurant',
+            params: { id: $stateParams.id }
+        }).then(function successCallback(response) {
+            console.log(response)
+            $scope.restaurant = response.data
+            // this callback will be called asynchronously
+            // when the response is available
+        }, function errorCallback(response) {
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
         });
+        //    $state.go('restaurants');
     }
 
-}).controller('RestaurantEditController', function ($scope, $state, $stateParams, Restaurant) {
+}).controller('RestaurantEditController', function ($scope, $state, $stateParams, $http) {
 
-    $scope.updateRestaurant = function () {
-        $scope.restaurant.$update(function () {
-            $state.go('restaurants');
-        });
-    };
+    console.log($stateParams)
+    $http({
+        method: 'PUT',
+        url: '/api/restaurant',
+        params: { id: $stateParams.id }
+    }).then(function successCallback(response) {
+        console.log(response)
+        $scope.restaurant = response.data
+        // this callback will be called asynchronously
+        // when the response is available
+    }, function errorCallback(response) {
+        // called asynchronously if an error occurs
+        // or server returns response with an error status.
+    });
 
-    $scope.loadRestaurant = function () {
-        $scope.restaurant = Restaurant.get({ id: $stateParams.id });
-    };
 
-    $scope.loadRestaurant();
+    // $scope.updateRestaurant = function () {
+    //     $scope.restaurant.$update(function () {
+    //         $state.go('restaurants');
+    //     });
+    // };
+
+    // $scope.loadRestaurant = function () {
+    //     $scope.restaurant = Restaurant.get({ id: $stateParams.id });
+    // };
+
+    // $scope.loadRestaurant();
 });

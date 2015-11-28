@@ -1,7 +1,9 @@
-<table class="table movietable">
+<table class="table restauranttable ">
     <tr>
-        <td><h3>Details for {{restaurant.name}}</h3></td>
-        <td></td>
+        <td colspan="2"><h3>Details for {{restaurant.name}}</h3></td>
+    </tr>
+    <tr>
+        <td colspan="2" align="middle"><img src="{{restaurant.photo.url}}" height="300"></td>
     </tr>
     <tr>
         <td>Restaurant Name</td>
@@ -21,5 +23,5 @@
     </tr>
 </table>
 <div>
-    <a class="btn btn-primary" ui-sref="editRestaurant({id:restaurant._id})">Edit</a>
+    <a class="btn btn-primary" ui-sref="editRestaurant({id:restaurant.objectId})">Edit</a>
 </div>

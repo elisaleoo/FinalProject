@@ -1,4 +1,4 @@
-<a ui-sref="newMovie" class="btn-primary btn-lg nodecoration">Add New Restaurant</a>
+<a ui-sref="newRestaurant" class="btn-primary btn-lg nodecoration">Add New Restaurant</a>
 <table class="table movietable">
     <tr>
         <td><h3>All Restaurants</h3></td>
@@ -8,7 +8,7 @@
         <td>{{restaurant.name}}</td>
         <td>
             <a class="btn btn-primary" ui-sref="viewRestaurant({id:restaurant.objectId})">View</a>
-            <a class="btn btn-danger"  ng-click="deleteMovie(movie)">Delete</a>
+            <a class="btn btn-danger"  ng-click="deleteRestaurant(restaurant)">Delete</a>
         </td>
     </tr>
 </table>

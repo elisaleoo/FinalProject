@@ -9,6 +9,11 @@
 .movietable tr:nth-child(1) td{
     border-top: none;
 }
+
+.restauranttable tr td:nth-child(2){
+    width: 600px;
+}
+
 a.nodecoration{
     text-decoration:none;
 }
