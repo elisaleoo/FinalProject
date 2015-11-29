@@ -16,7 +16,6 @@ angular.module('restaurantApp.controllers', []).controller('RestaurantListContro
         // called asynchronously if an error occurs
         // or server returns response with an error status.
     });
-
     $scope.deleteRestaurant = function (restaurant) {
         if (popupService.showPopup('Really delete this?')) {
             restaurant.$delete(function () {
@@ -48,10 +47,15 @@ angular.module('restaurantApp.controllers', []).controller('RestaurantListContro
         $http({
             method: 'POST',
             url: '/api/restaurant',
-            params: { id: $stateParams.id }
+            params: { name: $scope.restaurant.name,
+                        about: $scope.restaurant.about,
+                        address: $scope.restaurant.address,
+                        phone: $scope.restaurant.phone
+            }
         }).then(function successCallback(response) {
             console.log(response)
             $scope.restaurant = response.data
+            
             // this callback will be called asynchronously
             // when the response is available
         }, function errorCallback(response) {
