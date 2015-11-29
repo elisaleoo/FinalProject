@@ -40,6 +40,44 @@ router.get('/restaurant', function (req, res, next) {
   });
 });
 
+router.delete('/restaurant', function (req, res, next) {
+  var Restaurant = Parse.Object.extend("Restaurant");
+  var query = new Parse.Query(Restaurant);
+  var restaurant = req.body
+  restaurant.destroy({
+    success: function (restaurant) {
+      res.send(restaurant)
+      // The object was deleted successfully.
+    },
+    error: function (restaurant, error) {
+      console.log(error)
+      res.status(error.code).send(error.message)
+      // The delete failed.
+      // error is a Parse.Error with an error code and message.
+    }
+  });
+  // query.get(req.query.id, {
+  //   success: function (restaurant) {
+  //     restaurant.destroy({
+  //       success: function (restaurant) {
+  //         res.send(restaurant)
+  //         // The object was deleted successfully.
+  //       },
+  //       error: function (restaurant, error) {
+  //         console.log(error)
+  //         res.status(error.code).send(error.message)
+  //         // The delete failed.
+  //         // error is a Parse.Error with an error code and message.
+  //       }
+  //     });
+
+  //   },
+  //   error: function (error) {
+  //     console.log("Error: " + error);
+  //   }
+  // });
+});
+
 router.put('/restaurant', function (req, res, next) {
   var Restaurant = Parse.Object.extend("Restaurant");
   var query = new Parse.Query(Restaurant);
@@ -57,21 +95,29 @@ router.put('/restaurant', function (req, res, next) {
 });
 
 router.post('/restaurant', function (req, res, next) {
-  
-  console.log("post")
+
   var Restaurant = Parse.Object.extend("Restaurant");
-  var query = new Parse.Query(Restaurant);
-  // query.equalTo("playerName", "Dan Stemkoski");
-  query.get(req.query.id, {
-    success: function (results) {
-      res.send(results)
-      // Do something with the returned Parse.Object values
-      
+  var restaurant = new Restaurant();
+
+  var data = req.body
+  console.log(data)
+  restaurant.save(data, {
+    success: function (restaurant) {
+      res.send(restaurant)
+      // The object was saved successfully.
     },
-    error: function (error) {
-      console.log("Error: " + error);
+    error: function (restaurant, error) {
+      console.log(error)
+      res.status(error.code).send(error.message)
+      // The save failed.
+      // error is a Parse.Error with an error code and message.
     }
   });
+  // restaurant.set("name", data.name);
+  // restaurant.set("about", data.about);
+  // restaurant.set("address", data.address);
+  // restaurant.set("phone", data.phone);
+  
 });
 
 module.exports = router;

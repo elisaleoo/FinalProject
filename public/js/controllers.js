@@ -2,8 +2,6 @@
  * Created by Sandeep on 01/06/14.
  */
 angular.module('restaurantApp.controllers', []).controller('RestaurantListController', function ($scope, $state, popupService, $window, $http) {
-
-    // $scope.movies=Movie.query();
     
     $http({
         method: 'GET',
@@ -18,9 +16,17 @@ angular.module('restaurantApp.controllers', []).controller('RestaurantListContro
     });
     $scope.deleteRestaurant = function (restaurant) {
         if (popupService.showPopup('Really delete this?')) {
-            restaurant.$delete(function () {
-                $window.location.href = '';
-            });
+                $http({
+                    method: 'DELETE',
+                    url: '/api/restaurant',
+                    data: restaurant
+                }).then(function successCallback(response) {
+                    // this callback will be called asynchronously
+                    // when the response is available
+                }, function errorCallback(response) {
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+                });
         }
     }
 
@@ -41,28 +47,29 @@ angular.module('restaurantApp.controllers', []).controller('RestaurantListContro
         // or server returns response with an error status.
     });
 
-}).controller('RestaurantCreateController', function ($scope, $state, $stateParams, $http) {
-
+}).controller('RestaurantCreateController', function ($scope, $state, $http) {
+    $scope.restaurant = {}
     $scope.addRestaurant = function () {
+        var restaurant = $scope.restaurant
+        console.log(restaurant)
         $http({
             method: 'POST',
             url: '/api/restaurant',
-            params: { name: $scope.restaurant.name,
-                        about: $scope.restaurant.about,
-                        address: $scope.restaurant.address,
-                        phone: $scope.restaurant.phone
+            data: {   name: restaurant.name,
+                        about: restaurant.about,
+                        address: restaurant.address,
+                        phone: restaurant.phone
             }
         }).then(function successCallback(response) {
-            console.log(response)
-            $scope.restaurant = response.data
+            $state.go('restaurants');
             
             // this callback will be called asynchronously
             // when the response is available
         }, function errorCallback(response) {
             // called asynchronously if an error occurs
             // or server returns response with an error status.
+            alert('Um erro aconteceu ao tentar salvar o restaurante')
         });
-        //    $state.go('restaurants');
     }
 
 }).controller('RestaurantEditController', function ($scope, $state, $stateParams, $http) {
